@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--  配置mybatis链接数据源-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.DriverManagerDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost/han"></property>
+        <property name="user" value="root"></property>
+        <property name="password" value="huayu"></property>
+    </bean>
+
+       <!-- 配置mybatissetting-->
+    <bean id="setting" class="org.apache.ibatis.session.Configuration">
+               <!-- 日志输出-->
+            <property name="logImpl" value="org.apache.ibatis.logging.log4j.Log4jImpl"></property>
+    </bean>
+
+
+
+    <!--配置sqlsessionfactroy-->
+    <bean id="sessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:mybaits.xml"></property>
+        <property name="typeAliasesPackage" value="bean"></property> <!--批量别名-->
+        <property name="plugins">
+    <array>
+        <!-- 分页插件配置 -->
+        <bean id="paginationInterceptor" class="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor"/>
+    </array>
+</property>
+</bean>
+
+    <!-- spring批量扫描mybatis的mapper接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.huayu.dao"></property>
+            <property name="sqlSessionFactoryBeanName" value="sessionFactory"></property>
+    </bean>
+
+    <!-- 配置扫描注解,不扫描@Controller注解 -->
+    <context:component-scan base-package="com.huayu">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
+
+
+</beans>

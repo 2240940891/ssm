@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>springmcv+thymeleaf</title>
+    <script type="text/javascript"  th:src="@{/jquery-3.3.1.min.js}" ></script>
+</head>
+<body>
+<input type="hidden" id="noteId" th:value="${bb}"/>
+<span>[[${bb}]]</span>
+<table>
+<tr th:each="user:${user}">
+    <td th:text="${user.getId()}"></td>
+    <td th:text="${user.getName()}"></td>
+    <td></td>
+</tr>
+</table>
+</body>
+</html>
