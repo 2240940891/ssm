@@ -10,6 +10,8 @@
 <html>
 <head>
     <script type="text/javascript" src="${pageContext.request.contextPath}/jquery-3.3.1.min.js" ></script>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <script src="/layui/layui.js" charset="utf-8"></script>
     <script type="application/javascript">
         var inputs =  document.getElementsByTagName("input");
         function selectAll() {
@@ -98,11 +100,26 @@
         }
 
 
+
+
         function insert(id) {
             location.href="/student/qq.do?id=1";
         }
 
+        //文件上传
+        layui.use('upload', function(){
+            var upload = layui.upload;
 
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#test1' //绑定元素
+                ,url: '/student/hh.do' //上传接口
+                ,accept: 'file'
+                ,done: function(res){
+                    //上传完毕回调
+                }
+            });
+        });
     </script>
 </head>
 <body>
@@ -111,6 +128,9 @@
     名字:<input type="text" id="name"/>班级:<input type="text" id="sex"/>
     <button onclick="select()" >查询</button>
     <button onclick="pidele()">批量删除</button>
+    <button type="button" class="layui-btn" id="test1">
+        <i class="layui-icon">&#xe67c;</i>批量上传
+    </button>
     <input type="button"  onclick="selectAll()" value="全选"/>
     <input type="button" onclick="unSelectAll()" value="全不选"/>
     <input type="button" onclick="converSelectAll()" value="反选">

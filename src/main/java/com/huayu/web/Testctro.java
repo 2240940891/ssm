@@ -11,8 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -115,5 +119,21 @@ public class Testctro {
         }
         return "1";
     }
+
+    @RequestMapping("/hh.do")
+    @ResponseBody
+    public  void getexcal(@RequestParam("file") MultipartFile pictureFile) throws Exception {
+        try {
+           List<student> studentList=studentserves.getexcal(pictureFile.getInputStream());
+            studentserves.saveBatch(studentList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setxcal(@RequestParam("file") MultipartFile pictureFile)throws Exception{
+            
+    }
+
 
 }

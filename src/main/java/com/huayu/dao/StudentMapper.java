@@ -60,4 +60,5 @@ public interface StudentMapper extends  BaseMapper<student> {
     public IPage<student> dd(Page<student> page);
 
 
+
 }
